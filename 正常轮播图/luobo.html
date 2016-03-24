@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lunbo</title>
+<script src="./js/function.js"></script>
+<script src="./js/animate.js"></script>
+<script>
+	 window.onload=function(){
+     var win=$(".banner")[0];
+     var imgs=$(".abc");
+     var lis=$(".quan");
+     var btnl=$(".btnl")[0];
+     var btnr=$(".btnr")[0];
+     var num=0;
+     var t=setInterval(move,1000);
+     //鼠标移入移出
+     win.onmouseover=function(){
+     	clearInterval(t)
+     }
+     win.onmouseout=function(){
+     	t=setInterval(move,1000)
+     }
+     //点击左右小爪
+     btnr.onclick=function(){
+     	move();
+     }
+     btnl.onclick=function(){
+     	num--;
+     	if(num<0){
+     		num=imgs.length-1;
+     	}
+
+     	for(var i=0;i<imgs.length;i++){
+          imgs[i].style.zIndex=0;
+    	  lis[i].style.background="#f4f4f4";
+
+    	}
+    	  imgs[num].style.zIndex=3;
+    	  lis[num].style.background="red";
+     }
+     //点击跳转
+     for(i=0;i<imgs.length;i++){
+     	lis[i].index=i;
+     	lis[i].onclick=function(){
+     	num=this.index;
+     	for(var i=0;i<imgs.length;i++){
+          imgs[i].style.zIndex=0;
+    	  lis[i].style.background="#f4f4f4";
+    	  animate(imgs[i],{opacity:0},1000);
+    	}
+    	  imgs[num].style.zIndex=3;
+    	  lis[num].style.background="red";
+    	  animate(imgs[num],{opacity:1},1000);	
+     	}
+     }
+     //轮播
+    function move(){
+    	num++;
+    	if(num==imgs.length){
+    		num=0;
+    	}
+    	for(var i=0;i<imgs.length;i++){
+          imgs[i].style.zIndex=0;
+    	  lis[i].style.background="#f4f4f4";
+    	}
+    	  imgs[num].style.zIndex=3;
+    	  lis[num].style.background="red";
+       }
+}
+</script>
+<style>
+	.banner{
+		width:740px;
+		height: 350px;
+		border: 2px solid #dfdfdf;
+		margin: 20px auto;
+		position: relative;
+	}
+	.abc{
+		position: absolute;
+		top:0;
+		display: block;
+	}
+	.yuan{
+		width: 200px;
+	    height: 20px;
+	    position: absolute;
+	    left:35%;
+	    z-index:9;
+	    bottom: 15px;
+	}
+	.quan{
+		float: left;
+	    width: 20px;
+	    height: 20px;
+	    background: #ccc;
+	    border-radius: 50%;
+	    margin-right: 5px;
+	    text-align: center;
+	    line-height: 20px;
+	    cursor: pointer;
+	    list-style: none;
+	}
+	/*#one{
+		background: red;
+	}*/
+	.btn{
+		width: 100%;
+		height: 70px;
+		position: absolute;
+		top:50%;
+		left: 0;
+		z-index:9;
+		margin-top:-35px;
+	}
+	.btnl{
+		float: left;
+		width: 40px;
+		text-align: center;
+		line-height: 70px;
+		opacity: 0.8;
+		background: green;
+		cursor:pointer;
+	}
+	.btnr{
+		float: right;
+		width: 40px;
+		text-align: center;
+		line-height: 70px;
+		opacity: 0.8;
+		background: green;
+		cursor:pointer;
+	}
+</style>
+</head>
+<body>
+<div class="banner">
+   <a href class="abc"><img src="./image/banner1.jpg"></a>
+   <a href class="abc"><img src="./image/banner2.jpg"></a>
+   <a href class="abc"><img src="./image/banner3.jpg"></a>
+   <a href class="abc"><img src="./image/banner4.jpg"></a>
+   <a href class="abc"><img src="./image/banner5.jpg"></a>
+   <a href class="abc"><img src="./image/banner6.jpg"></a>
+   <a href class="abc"><img src="./image/banner7.jpg"></a>
+   <a href class="abc"><img src="./image/banner8.jpg"></a>
+   <ul class="yuan">
+   	<li class="quan" id="one">1</li>
+    <li class="quan">2</li>
+   	<li class="quan">3</li>
+   	<li class="quan">4</li>
+   	<li class="quan">5</li>
+   	<li class="quan">6</li>
+   	<li class="quan">7</li>
+   	<li class="quan">8</li>
+   	
+   </ul>
+   <div class="btn">
+   	<div class="btnl">&lt;</div>
+   	<div class="btnr">&gt;</div>
+   </div>
+</div>
+
+</body>
+</html>

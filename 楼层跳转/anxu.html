@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="./js/function.js"></script>
+<script src="./js/animate.js"></script>
+<script> 
+window.onload=function(){
+	var cH=document.documentElement.clientHeight;
+	var floors=$(".floor");
+	var floorArr=[];
+	for(var i=0;i<floors.length;i++){
+		floorArr.push(floors[i].offsetTop);
+	}
+
+
+
+	//楼层跳转
+   var jump=$(".jump")[0];
+   var lis=$("li",jump);
+   var jH=jump.offsetHeight;
+   jump.style.top=(cH-jH)/2+"px";
+//开关 
+   var flag=true;
+   for(var i=0;i<lis.length;i++){
+   lis[i].index=i;
+   lis[i].onclick=function(){
+    flag=false;
+   var obj=document.body.scrollTop?document.body:document.documentElement;
+   animate(obj,{scrollTop:floors[this.index].offsetTop},function(){
+   	flag=true;
+   });
+   for(var j=0;j<lis.length;j++){
+   	lis[j].style.background="#f4f4f4";
+     }
+     lis[this.index].style.background="pink";
+     }
+	}
+ 
+// 返回顶部
+    var back=$(".back")[0];
+    back.onclick=function(){
+    var obj=document.body.scrollTop?document.body:document.documentElement;
+    animate(obj,{
+    scrollTop:1 });
+    }
+//搜索
+  var flagD=true;
+  var search=$(".top")[0];
+    //按需加载
+  if (!flag) return;
+	window.onscroll=function(){
+		var obj=document.body.scrollTop?document.body:document.documentElement;
+		var tops=obj.scrollTop;
+		for(var i=0;i<floors.length;i++){
+			if(tops+cH>=floorArr[i]+200){
+				var imgs=$("img",floors[i]);
+				for(var j=0;j<imgs.length;j++){
+					imgs[j].src=imgs[j].title
+				}
+			}
+		}
+
+		//jump色块
+    
+		for(var i=0;i<floors.length;i++){
+			if(tops+cH>=floorArr[i]){
+        for(var j=0;j<floors.length;j++){
+            lis[j].style.background="#f4f4f4";
+             }
+            lis[i].style.background="pink";
+				 }
+        }
+  //back
+  
+   
+     if(tops>=500){
+     if(flagD){
+       flagD=false;
+       animate(search,{top:0});
+       animate(back,{opacity:1});
+     }
+    }else{
+     if(!flagD){
+       flagD=true;
+       animate(search,{top:-40});
+       animate(back,{opacity:0}); 
+      }
+
+    }
+	}
+}
+</script>
+<style>
+.head{
+	 width: 750px;
+	 height: 170px;
+	 text-align: center;
+	 line-height: 170px;
+	 background: #ccc;
+	 margin: 0 auto;
+}
+.floor1{
+	 width:750px;
+	 height: 360px;
+	 margin: 10px auto;
+	 text-align: center;
+}
+.floor2{
+	 width:750px;
+	 height: 360px;
+	 margin: 10px auto;
+	 text-align: center;
+}
+.floor3{
+	 width:750px;
+	 height: 360px;
+	 margin: 10px auto;
+	 text-align: center;
+}
+.floor4{
+	 width:750px;
+	 height: 360px;
+	 margin: 10px auto;
+	 text-align: center;
+}
+.floor5{
+	 width:750px;
+	 height: 360px;
+	 margin: 10px auto;
+	 text-align: center;
+}
+.end{
+	 width: 750px;
+	 height: 170px;
+	 text-align: center;
+	 line-height: 170px;
+	 background: #ccc;
+	 margin: 0 auto;
+ }
+.jump{
+	width: 30px;
+	height: 150px;
+	position: fixed;
+	left: 60px;
+	top:20px;
+	/*background: #f4f4f4;*/
+	padding: 0;
+	margin: 0;
+}	
+.jump li{
+    width: 30px;
+    height: 29px;
+    border-bottom: 1px solid red;
+    text-align: center;
+    line-height: 49px;
+    /*background: #dfdfdf;*/
+    color:red;
+    list-style: none;
+}
+.back{
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	background:#666;
+	border:1px solid #dfdfdf; 
+	border-radius: 10%;
+}
+.top{
+	width: 100%;
+	height: 30px;
+	background: red;
+	border:1px solid green;
+	position: fixed;
+	top:0px;
+	margin: 0 auto;
+}
+</style>
+<body>
+<div class="head">
+		head
+	</div>
+	<div class="floor floor1">
+		<img src="" alt="" title="./image1/banner1.jpg">
+	</div>
+	<div class="floor floor2">
+		<img src="" alt="" title="./image1/banner2.jpg">
+	</div>
+	<div class="floor floor3">
+		<img src="" alt="" title="./image1/banner3.jpg">
+	</div>
+	<div class="floor floor4">
+		<img src="" alt="" title="./image1/banner4.jpg">
+	</div>
+	<div class="floor floor5">
+		<img src="" alt="" title="./image1/banner5.jpg">
+	</div>
+	<div class="end">
+		end
+	</div>
+	<div class="jump">
+		<li>1f</li>
+		<li>2f</li>
+		<li>3f</li>
+	    <li>4f</li>
+	    <li>5f</li>
+	</div>
+	<div class="back">返回</div>
+	<div class="top"></div>
+</body>
+</html>

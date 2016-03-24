@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+<script src="./js/function.js"></script>
+<script src="./js/animate.js"></script>
+<script>
+	window.onload=function(){
+	var win=$(".window")[0];
+	var box=$(".box")[0];
+	var as=$("a",box);
+	var len=as.length;
+	var iW=parseInt(getStyle(as[0],"width"));
+	box.style.width=len*iW+"px";
+	var btnl=$("btnl",box)[0];
+	var btnr=$("btnr",box)[0];
+	var flag=true;
+	var t;
+	t=setInterval(move,1000);
+	win.onmouseover=function(){
+       clearInterval(t);
+	}
+	win.onmouseout=function(){
+       t=setInterval(move,1000);
+	}
+	function move(){
+	    animate(box,{left:-iW},function(){
+		var first=getFirst(box);
+		box.appendChild(first);
+		box.style.left="0px";
+		// flag=true;
+		})
+	}
+}
+</script>
+</head>
+<style>
+.window{
+        width: 1000px;
+        height: 164px;
+        position: relative;
+        border:3px solid green;
+        margin: 10px auto;
+        overflow: hidden;  
+        } 
+        .box{
+        	width: 1175px;
+        	height: 195px; 
+        	position: absolute;
+           z-index: -1;
+          }
+         .box a{
+          width:235px;
+          height:110px;
+          display:block;
+          float:left;
+          font-size:0;
+         }
+         .btn{
+          width:100%;
+          height: 30px;
+          position: absolute;
+          left:0;
+          top:30%;
+          /*margin-top: -15px;*/
+          }
+        
+        .btnl{
+          width: 40px;
+          height: 70px;
+          text-align: center;
+          line-height: 70px;
+          font-weight: bold;
+          float: left;
+          opacity:0.8;
+          background: green;
+          font-size:20px;
+          cursor:pointer;
+          width:40px;
+          
+      
+        }
+        .btnr{
+          width: 40px;
+          height: 70px;
+          text-align: center;
+          line-height: 70px;
+          font-weight: bold;
+          float: right;
+          opacity:0.8;
+          background:green;
+          cursor:pointer;
+        }	
+</style>
+<body>
+<div class="window">
+	<div class="box">
+		<a href=""><img src="./image/yidong1.jpg"></a>
+		<a href=""><img src="./image/yidong2.jpg"></a>
+		<a href=""><img src="./image/yidong3.jpg"></a>
+		<a href=""><img src="./image/yidong4.jpg"></a>
+		<a href=""><img src="./image/yidong5.jpg"></a>
+	</div>
+  <div class="btn">
+	 <div class="btnl">&lt;</div>
+	 <div class="btnr">&gt;</div>
+  </div>
+</div>
+</body>
+</html>
